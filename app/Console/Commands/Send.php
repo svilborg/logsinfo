@@ -64,6 +64,7 @@ class Send extends Command
         foreach ($fields as $field) {
             $charts[$field] = $logCharts->getChart($logs[$field]);
         }
+
         Mail::send('emails.summary_'.$type, [
             'logs' => $logs,
             'chart' => $charts
