@@ -6,6 +6,7 @@ use MVar\LogParser\LogIterator;
 
 class SyslogParser implements ParserInterface
 {
+    use StatsTrait;
 
     const EXP = '/(?<month>\w+\S+)\s+' .
     //
@@ -45,7 +46,7 @@ class SyslogParser implements ParserInterface
 
     public function parse($file = '')
     {
-        $file = !empty($file) ? $file : '/var/log/syslog';
+        $file = ! empty($file) ? $file : '/var/log/syslog';
         $i = 0;
 
         foreach (new LogIterator($file, $this->parser) as $data) {
@@ -84,25 +85,5 @@ class SyslogParser implements ParserInterface
         });
 
         return $this->log;
-    }
-
-    private function calcPerecent($field, $sum)
-    {
-        foreach ($this->log[$field] as $key => $item) {
-            $perc = round(((int) $item["count"] / $sum) * 100);
-            $this->log[$field][$key]["percent"] = $perc . " %";
-        }
-    }
-
-    private function incStats($stat, $field)
-    {
-        if (! isset($this->log[$stat][$field])) {
-            $this->log[$stat][$field] = [
-                "name" => $field,
-                "count" => 1
-            ];
-        } else {
-            $this->log[$stat][$field]["count"] ++;
-        }
     }
 }
