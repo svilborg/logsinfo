@@ -7,6 +7,8 @@ use MVar\LogParser\LogIterator;
 class ApacheLogParser implements ParserInterface
 {
 
+    use StatsTrait;
+
     const EXP1 = '/' .
     //
     '(?<ip>\d+\.\d+\.\d+\.\d+)\s+' .
@@ -78,9 +80,10 @@ class ApacheLogParser implements ParserInterface
         }, $this->log["hour"]));
 
         $this->calcPerecent("day", $sum);
-        $this->calcPerecent("prog", $sum);
         $this->calcPerecent("hour", $sum);
-        $this->calcPerecent("user", $sum);
+        $this->calcPerecent("ip", $sum);
+        $this->calcPerecent("method", $sum);
+        $this->calcPerecent("code", $sum);
 
         usort($this->log["ip"], function ($a, $b) {
             return $b['count'] <=> $a['count'];
@@ -95,25 +98,5 @@ class ApacheLogParser implements ParserInterface
         });
 
         return $this->log;
-    }
-
-    private function calcPerecent($field, $sum)
-    {
-        foreach ($this->log[$field] as $key => $item) {
-            $perc = round(((int) $item["count"] / $sum) * 100);
-            $this->log[$field][$key]["percent"] = $perc . " %";
-        }
-    }
-
-    private function incStats($stat, $field)
-    {
-        if (! isset($this->log[$stat][$field])) {
-            $this->log[$stat][$field] = [
-                "name" => $field,
-                "count" => 1
-            ];
-        } else {
-            $this->log[$stat][$field]["count"] ++;
-        }
     }
 }
