@@ -1,151 +1,96 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<title>Loxnews</title>
-	<style type="text/css">
-		/* Based on The MailChimp Reset INLINE: Yes. */
-		/* Client-specific Styles */
-		#outlook a {padding:0;} /* Force Outlook to provide a "view in browser" menu link. */
-		body{width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0;}
-		/* Prevent Webkit and Windows Mobile platforms from changing default font sizes.*/
-		.ExternalClass {width:100%;} /* Force Hotmail to display emails at full width */
-		.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;}
-		/* Forces Hotmail to display normal line spacing.  More on that: http://www.emailonacid.com/forum/viewthread/43/ */
-		#backgroundTable {margin:0; padding:0; width:100% !important; line-height: 100% !important;}
-		/* End reset */
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width"/>
 
-		/* Some sensible defaults for images
-		Bring inline: Yes. */
-		img {outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;}
-		a img {border:none;}
-		.image_fix {display:block;}
+    <!-- For development, pass document through inliner -->
 
-		/* Yahoo paragraph fix
-		Bring inline: Yes. */
-		p {margin: 1em 0;}
+    <style type="text/css">
 
-		/* Hotmail header color reset
-		Bring inline: Yes. */
-		h1, h2, h3, h4, h5, h6 {color: black !important;}
+    /* Your custom styles go here */
+* { margin: 0; padding: 0; font-size: 100%;
+font-family: 'Avenir Next', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+line-height: 1.65; }
 
-		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {color: blue !important;}
+img { max-width: 100%; margin: 0 auto; display: block; }
 
-		h1 a:active, h2 a:active,  h3 a:active, h4 a:active, h5 a:active, h6 a:active {
-		color: red !important; /* Preferably not the same color as the normal header link color.  There is limited support for psuedo classes in email clients, this was added just for good measure. */
-		}
+body, .body-wrap { width: 100% !important; height: 100%; background: #f8f8f8; }
 
-		h1 a:visited, h2 a:visited,  h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited {
-		color: purple !important; /* Preferably not the same color as the normal header link color. There is limited support for psuedo classes in email clients, this was added just for good measure. */
-		}
+a { color: #71bc37; text-decoration: none; }
 
-		/* Outlook 07, 10 Padding issue fix
-		Bring inline: No.*/
-		table td {border-collapse: collapse;}
+a:hover { text-decoration: underline; }
 
-		/* Remove spacing around Outlook 07, 10 tables
-		Bring inline: Yes */
-		table { border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; }
+.text-center { text-align: center; }
 
-		/* Styling your links has become much simpler with the new Yahoo.  In fact, it falls in line with the main credo of styling in email and make sure to bring your styles inline.  Your link colors will be uniform across clients when brought inline.
-		Bring inline: Yes. */
-		a {color: orange;}
+.text-right { text-align: right; }
 
+.text-left { text-align: left; }
 
-		/***************************************************
-		****************************************************
-		MOBILE TARGETING
-		****************************************************
-		***************************************************/
-		@media only screen and (max-device-width: 480px) {
-			/* Part one of controlling phone number linking for mobile. */
-			a[href^="tel"], a[href^="sms"] {
-						text-decoration: none;
-						color: blue; /* or whatever your want */
-						pointer-events: none;
-						cursor: default;
-					}
+.button { display: inline-block; color: white; background: #71bc37; border: solid #71bc37; border-width: 10px 20px 8px; font-weight: bold; border-radius: 4px; }
 
-			.mobile_link a[href^="tel"], .mobile_link a[href^="sms"] {
-						text-decoration: default;
-						color: orange !important;
-						pointer-events: auto;
-						cursor: default;
-					}
+.button:hover { text-decoration: none; }
 
-		}
+h1, h2, h3, h4, h5, h6 { margin-bottom: 12px; line-height: 1.25; }
 
-		/* More Specific Targeting */
+h1 { font-size: 32px; }
 
-		@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-		/* You guessed it, ipad (tablets, smaller screens, etc) */
-			/* repeating for the ipad */
-			a[href^="tel"], a[href^="sms"] {
-						text-decoration: none;
-						color: blue; /* or whatever your want */
-						pointer-events: none;
-						cursor: default;
-					}
+h2 { font-size: 28px; }
 
-			.mobile_link a[href^="tel"], .mobile_link a[href^="sms"] {
-						text-decoration: default;
-						color: orange !important;
-						pointer-events: auto;
-						cursor: default;
-					}
-		}
+h3 { font-size: 24px; }
 
-		@media only screen and (-webkit-min-device-pixel-ratio: 2) {
-		/* Put your iPhone 4g styles in here */
-		}
+h4 { font-size: 20px; }
 
-		/* Android targeting */
-		@media only screen and (-webkit-device-pixel-ratio:.75){
-		/* Put CSS for low density (ldpi) Android layouts in here */
-		}
-		@media only screen and (-webkit-device-pixel-ratio:1){
-		/* Put CSS for medium density (mdpi) Android layouts in here */
-		}
-		@media only screen and (-webkit-device-pixel-ratio:1.5){
-		/* Put CSS for high density (hdpi) Android layouts in here */
-		}
-		/* end Android targeting */
+h5 { font-size: 16px; }
 
-	</style>
+p, ul, ol { font-size: 16px; font-weight: normal; margin-bottom: 20px; }
 
-	<!-- Targeting Windows Mobile -->
-	<!--[if IEMobile 7]>
-	<style type="text/css">
+.container { display: block !important; clear: both !important; margin: 0 auto !important;
+max-width: 780px !important; }
 
-	</style>
-	<![endif]-->
+.container table { width: 100% !important; border-collapse: collapse; }
 
-	<!-- ***********************************************
-	****************************************************
-	END MOBILE TARGETING
-	****************************************************
-	************************************************ -->
+.container .masthead { padding: 80px 0; background: #71bc37; color: white; }
 
-	<!--[if gte mso 9]>
-		<style>
-		/* Target Outlook 2007 and 2010 */
-		</style>
-	<![endif]-->
+.container .masthead h1 { margin: 0 auto !important; max-width: 90%; text-transform: uppercase; }
+
+.container .content { background: white; padding: 30px 35px; }
+
+.container .content.footer { background: none; }
+
+.container .content.footer p { margin-bottom: 0; color: #888; text-align: center; font-size: 14px; }
+
+.container .content.footer a { color: #888; text-decoration: none; font-weight: bold; }
+
+.container .content.footer a:hover { text-decoration: underline; }
+    </style>
 </head>
 <body>
-<!-- Wrapper/Container Table: Use a wrapper table to control the width and the background color consistently of your email. Use this approach instead of setting attributes on the body tag. -->
-<table cellpadding="0" cellspacing="0" border="0" id="backgroundTable">
-	<tr>
-		<td valign="top">
-		<!-- Tables are the most common way to format your email consistently.
-		Set your table widths inside cells and in most cases reset cellpadding, cellspacing,
-		and border to zero.
-		Use nested tables as a way to space effectively in your message. -->
+<table class="body-wrap">
+    <tr>
+        <td class="container">
+
+            <!-- Message start -->
+            <table>
+                <tr>
+                    <td align="center" class="masthead">
+
+                        <h1>Logs</h1>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="content">
+
+
+                        <p></p>
 		<h3> Summary </h3>
 		<hr/>
 
+		<p>  </p>
 		<h4>Programs</h4>
+		{!! $chart["prog"] !!}
+		<p>  </p>
 
 		<table cellpadding="0" cellspacing="0" border="0" align="center">
 		@foreach ($logs['prog'] as $data)
@@ -158,7 +103,9 @@
 		</table>
 
 
+		<p>  </p>
 		<h4>User</h4>
+		{!! $chart["user"] !!}
 
 		<table cellpadding="0" cellspacing="0" border="0" align="center">
 		@foreach ($logs['user'] as $data)
@@ -170,7 +117,9 @@
 		@endforeach
 		</table>
 
+		<p>  </p>
 		<h4>Hourly</h4>
+		{!! $chart["hour"] !!}
 
 		<table cellpadding="0" cellspacing="0" border="0" align="center">
 		@foreach ($logs['hour'] as $data)
@@ -183,7 +132,9 @@
 		</table>
 
 
+		<p>  </p>
 		<h4>Daily</h4>
+		{!! $chart["day"] !!}
 
 		<table cellpadding="0" cellspacing="0" border="0" align="center">
 		@foreach ($logs['day'] as $data)
@@ -195,7 +146,9 @@
 		@endforeach
 		</table>
 
+		<p>  </p>
 		<h3> Logs </h3>
+		<hr/>
 		<table cellpadding="0" cellspacing="0" border="0" align="center">
 		@foreach ($logs['data'] as $data)
 			<tr>
@@ -209,25 +162,26 @@
 
 
 
+                    </td>
+                </tr>
+            </table>
 
-		<!-- End example table -->
+        </td>
+    </tr>
+    <tr>
+        <td class="container">
 
-		<!-- Yahoo Link color fix updated: Simply bring your link styling inline.
-		<a href="http://htmlemailboilerplate.com" target ="_blank" title="Styling Links"
-		style="color: orange; text-decoration: none;">Coloring Links appropriately</a>
-		-->
+            <!-- Message start -->
+            <table>
+                <tr>
+                    <td class="content footer" align="center">
+                        <p>Loxnews</p>
+                    </td>
+                </tr>
+            </table>
 
-		<!-- Gmail/Hotmail image display fix -->
-<!-- 		<img class="image_fix" src="full path to image" alt="Your alt text" title="Your title text" width="x" height="x" /> -->
-
-		<!-- Working with telephone numbers (including sms prompts).  Use the "mobile" class to style appropriately in desktop clients
-		versus mobile clients.
-		<span class="mobile_link">123-456-7890</span>
-		-->
-
-		</td>
-	</tr>
+        </td>
+    </tr>
 </table>
-<!-- End of wrapper table -->
 </body>
 </html>

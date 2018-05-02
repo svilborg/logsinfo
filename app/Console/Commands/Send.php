@@ -3,8 +3,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
-use App\SyslogParserCliPresentation;
-use App\SyslogParser;
+use App\Parsers\SyslogParser;
+use App\LogChart;
 
 class Send extends Command
 {
@@ -14,7 +14,10 @@ class Send extends Command
      *
      * @var string
      */
-    protected $signature = 'send';
+    protected $signature = 'send
+             {--f=0 : Syslog file}
+             ';
+
 
     /**
      * The console command description.
@@ -40,11 +43,23 @@ class Send extends Command
      */
     public function handle()
     {
+        $file = $this->option("f");
+
         $parser = new SyslogParser();
-        $logs = $parser->parse();
+        $logs = $parser->parse($file);
+
+
+        $charts=[];
+        $logCharts = new LogChart();
+        $charts["prog"] = $logCharts->getChart($logs["prog"]);
+        $charts["day"] = $logCharts->getChart($logs["day"]);
+        $charts["hour"] = $logCharts->getChart($logs["hour"]);
+        $charts["user"] = $logCharts->getChart($logs["user"]);
+
 
         Mail::send('emails.summary', [
-            'logs' => $logs
+            'logs' => $logs,
+            'chart' => $charts
         ], function ($m) {
             $m->from('news@loxnews.com', 'Loxnews');
 

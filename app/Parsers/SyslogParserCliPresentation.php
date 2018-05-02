@@ -22,7 +22,7 @@ class SyslogParserCliPresentation implements ParserInterface
     {
 
         $parser = new SyslogParser();
-        $logs = $parser->parse();
+        $logs = $parser->parse($file);
 
         $data = [];
 

@@ -43,8 +43,9 @@ class SyslogParser implements ParserInterface
         ];
     }
 
-    public function parse($file = '/var/log/syslog')
+    public function parse($file = '')
     {
+        $file = !empty($file) ? $file : '/var/log/syslog';
         $i = 0;
 
         foreach (new LogIterator($file, $this->parser) as $data) {

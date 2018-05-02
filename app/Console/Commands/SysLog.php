@@ -1,8 +1,8 @@
 <?php
 namespace App\Console\Commands;
 
-use App\SyslogParserCliPresentation;
 use Illuminate\Console\Command;
+use App\Parsers\SyslogParserCliPresentation;
 
 class SysLog extends Command
 {
@@ -12,8 +12,8 @@ class SysLog extends Command
      *
      * @var string
      */
-    protected $signature = 'syslog:parse
-             {file="" : Syslog file}
+    protected $signature = 'syslog
+             {--f=0 : Syslog file}
              {--a : All Info}
              {--h : Hourly}
              {--d : Daily}
@@ -44,10 +44,14 @@ class SysLog extends Command
      */
     public function handle()
     {
+        $file = $this->option("f");
         $all = $this->option("a");
 
+
+        $this->output->note($file);
+
         $parser = new SyslogParserCliPresentation();
-        $logs = $parser->parse();
+        $logs = $parser->parse($file);
 
         if($all || $this->option("d")) {
             $this->table(["Day", "Logs"], $logs["day"]);
