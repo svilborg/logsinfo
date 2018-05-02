@@ -9,7 +9,7 @@ class ApacheLogParser implements ParserInterface
 
     use StatsTrait;
 
-    const EXP1 = '/' .
+    const EXP = '/' .
     //
     '(?<ip>\d+\.\d+\.\d+\.\d+)\s+' .
     //
@@ -58,7 +58,10 @@ class ApacheLogParser implements ParserInterface
 
         foreach (new LogIterator($file, $this->parser) as $data) {
 
-            if ($data && isset($data["prog"])) {
+            if ($data && isset($data["ip"])) {
+
+                unset($data["x1"], $data["x2"]);
+
                 $t = strtotime($data["time"]);
 
                 $this->log["data"][$i] = $data;
