@@ -5,6 +5,8 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 use App\Parsers\SyslogParser;
 use App\LogChart;
+use App\Parsers\ApacheLogParser;
+use App\Parsers\ParserStrategy;
 
 class Send extends Command
 {
@@ -44,20 +46,25 @@ class Send extends Command
     public function handle()
     {
         $file = $this->option("f");
+        $type = "apachelog";
 
-        $parser = new SyslogParser();
+        $parser = ParserStrategy::getParser($type);
         $logs = $parser->parse($file);
-
 
         $charts=[];
         $logCharts = new LogChart();
-        $charts["prog"] = $logCharts->getChart($logs["prog"]);
-        $charts["day"] = $logCharts->getChart($logs["day"]);
-        $charts["hour"] = $logCharts->getChart($logs["hour"]);
-        $charts["user"] = $logCharts->getChart($logs["user"]);
 
+        if($type == "apachelog") {
+            $fields = ["day", "hour", "method", "ip", "code"];
+        }
+        else {
+            $fields = ["day", "hour", "prog", "user"];
+        }
 
-        Mail::send('emails.summary', [
+        foreach ($fields as $field) {
+            $charts[$field] = $logCharts->getChart($logs[$field]);
+        }
+        Mail::send('emails.summary_'.$type, [
             'logs' => $logs,
             'chart' => $charts
         ], function ($m) {
