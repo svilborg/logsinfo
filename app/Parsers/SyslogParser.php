@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace App\Parsers;
 
 use MVar\LogParser\SimpleParser;
 use MVar\LogParser\LogIterator;

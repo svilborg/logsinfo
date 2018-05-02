@@ -6,7 +6,7 @@
  * Time: 18:08
  */
 
-namespace App;
+namespace App\Parsers;
 
 interface ParserInterface
 {
