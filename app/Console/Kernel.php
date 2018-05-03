@@ -26,8 +26,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('send --type apachelog')->daily(20);
-        $schedule->command('send --type syslog')->daily(20);
+        $schedule->command('send --t apachelog')->dailyAt("22:00");
+        $schedule->command('send --t syslog')->hourlyAt(38);
 
     }
 

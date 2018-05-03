@@ -17,7 +17,7 @@ class Send extends Command
     protected $signature = 'send
              {--f=0 : log file}
              {--t=syslog : file type}
-             {--m=test.gmail : email}
+             {--m=test@gmail.com : email}
              ';
 
 
