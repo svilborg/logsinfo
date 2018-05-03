@@ -23,6 +23,7 @@ class LogChart
 
     public function getChart($data, $count = 5)
     {
+
         if ($count > 0) {
             $data = array_slice($data, (- 1) * $count, $count, true);
         }
