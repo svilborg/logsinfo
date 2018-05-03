@@ -1,0 +1,10 @@
+May  3 13:37:58 user gnome-session[2872]: [29273:29318:0503/133758.566305:ERROR:upload_data_presenter.cc(73)] Not implemented reached in virtual void extensions::RawDataPresenter::FeedNext(const net::UploadElementReader &)
+May  3 13:37:58 user gnome-session[2872]: [29273:29318:0503/133758.761157:ERROR:upload_data_presenter.cc(73)] Not implemented reached in virtual void extensions::RawDataPresenter::FeedNext(const net::UploadElementReader &)
+May  3 13:37:59 user gnome-session[2872]: [29273:29318:0503/133759.103484:ERROR:upload_data_presenter.cc(73)] Not implemented reached in virtual void extensions::RawDataPresenter::FeedNext(const net::UploadElementReader &)
+May  3 13:38:01 user CRON[32118]: (user) CMD (php /opt/work/loxnews/artisan schedule:run >> /dev/null 2>&1)
+May  3 13:39:01 user CRON[32159]: (root) CMD (  [ -x /usr/lib/php/sessionclean ] && if [ ! -d /run/systemd/system ]; then /usr/lib/php/sessionclean; fi)
+May  3 13:39:01 user CRON[32160]: (user) CMD (php /opt/work/loxnews/artisan schedule:run >> /dev/null 2>&1)
+May  3 13:39:54 user systemd[1]: Starting Clean php session files...
+May  3 13:39:55 user systemd[1]: Started Clean php session files.
+May  3 13:40:01 user CRON[32335]: (user) CMD (php /opt/work/loxnews/artisan schedule:run >> /dev/null 2>&1)
+May  3 13:40:01 user CRON[32336]: (smmsp) CMD (test -x /etc/init.d/sendmail && test -x /usr/share/sendmail/sendmail && test -x /usr/lib/sm.bin/sendmail && /usr/share/sendmail/sendmail cron-msp)
