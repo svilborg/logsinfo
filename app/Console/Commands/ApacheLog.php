@@ -1,9 +1,8 @@
 <?php
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Parsers\SyslogParserCliPresentation;
 use App\Parsers\ApacheLogParser;
+use Illuminate\Console\Command;
 
 class ApacheLog extends Command
 {

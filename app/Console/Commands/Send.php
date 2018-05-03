@@ -1,12 +1,10 @@
 <?php
 namespace App\Console\Commands;
 
+use App\LogChart;
+use App\Parsers\ParserStrategy;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
-use App\Parsers\SyslogParser;
-use App\LogChart;
-use App\Parsers\ApacheLogParser;
-use App\Parsers\ParserStrategy;
 
 class Send extends Command
 {
@@ -19,6 +17,7 @@ class Send extends Command
     protected $signature = 'send
              {--f=0 : log file}
              {--t=syslog : file type}
+             {--m=test.gmail : email}
              ';
 
 
@@ -48,6 +47,7 @@ class Send extends Command
     {
         $file = $this->option("f");
         $type = $this->option("t");
+        $email = $this->option("m");
 
         $parser = $parserStratagy->getParser($type);
 
@@ -63,10 +63,10 @@ class Send extends Command
         Mail::send('emails.summary_'.$type, [
             'logs' => $logs,
             'chart' => $charts
-        ], function ($m) {
+        ], function ($m) use($email) {
             $m->from('news@loxnews.com', 'Loxnews');
 
-            $m->to('svilborg@gmail.com', "Svilen")->subject("Logs Information");
+            $m->to($email, "Subscriber")->subject("Logs Information");
         });
     }
 }
