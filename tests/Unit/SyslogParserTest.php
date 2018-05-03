@@ -5,13 +5,12 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Parsers\SyslogParser;
+use App\Console\Commands\SysLog;
 
 class SyslogParserTest extends TestCase
 {
 
     /**
-     * A basic test example.
-     *
      * @return void
      */
     public function testParserAndFields()
@@ -37,5 +36,14 @@ class SyslogParserTest extends TestCase
         $this->assertContains("prog", $parser->getFields());
         $this->assertContains("day", $parser->getFields());
         $this->assertContains("hour", $parser->getFields());
+    }
+
+    public function testEmpty()
+    {
+        $parser = new SyslogParser();
+
+        $this->expectException(\Exception::class);
+
+        $result = $parser->parse(__DIR__ . "/../data/empty");
     }
 }
