@@ -17,7 +17,8 @@ class Send extends Command
      * @var string
      */
     protected $signature = 'send
-             {--f=0 : Syslog file}
+             {--f=0 : log file}
+             {--t=syslog : file type}
              ';
 
 
@@ -46,20 +47,14 @@ class Send extends Command
     public function handle()
     {
         $file = $this->option("f");
-        $type = "apachelog";
+        $type = $this->option("t");
 
         $parser = ParserStrategy::getParser($type);
         $logs = $parser->parse($file);
+        $fields = $parser->getFields();
 
         $charts=[];
         $logCharts = new LogChart();
-
-        if($type == "apachelog") {
-            $fields = ["day", "hour", "method", "ip", "code"];
-        }
-        else {
-            $fields = ["day", "hour", "prog", "user"];
-        }
 
         foreach ($fields as $field) {
             $charts[$field] = $logCharts->getChart($logs[$field]);

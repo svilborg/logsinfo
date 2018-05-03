@@ -66,10 +66,6 @@ class ApacheLog extends Command
             $this->table(["Method", "Logs"], $logs["method"]);
         }
 
-//         if($all || $this->option("u")) {
-//             $this->table(["Program", "Logs"], $logs["prog"]);
-//         }
-
         if(true) {
             $this->table(["User", "Program", "Time"], $logs["data"]);
         }

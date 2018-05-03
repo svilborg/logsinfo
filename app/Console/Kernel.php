@@ -21,11 +21,14 @@ class Kernel extends ConsoleKernel
      *
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
+     *
+     *       * * * * * php /opt/work/loxnews/artisan schedule:run >> /dev/null 2>&1
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('send --type apachelog')->daily(20);
+        $schedule->command('send --type syslog')->daily(20);
+
     }
 
     /**

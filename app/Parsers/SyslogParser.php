@@ -44,6 +44,11 @@ class SyslogParser implements ParserInterface
         ];
     }
 
+    /**
+     *
+     * {@inheritDoc}
+     * @see \App\Parsers\ParserInterface::parse()
+     */
     public function parse($file = '')
     {
         $file = ! empty($file) ? $file : '/var/log/syslog';
@@ -85,5 +90,22 @@ class SyslogParser implements ParserInterface
         });
 
         return $this->log;
+    }
+
+    /**
+     *
+     * {@inheritDoc}
+     * @see \App\Parsers\ParserInterface::getFields()
+     */
+    public function getFields()
+    {
+        $fields = [
+            "day",
+            "hour",
+            "prog",
+            "user"
+        ];
+
+        return $fields;
     }
 }

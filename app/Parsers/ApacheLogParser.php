@@ -51,6 +51,11 @@ class ApacheLogParser implements ParserInterface
         ];
     }
 
+    /**
+     *
+     * {@inheritdoc}
+     * @see \App\Parsers\ParserInterface::parse()
+     */
     public function parse($file = '')
     {
         $file = ! empty($file) ? $file : '/var/log/apache2/access.log.1';
@@ -101,5 +106,23 @@ class ApacheLogParser implements ParserInterface
         });
 
         return $this->log;
+    }
+
+    /**
+     *
+     * {@inheritdoc}
+     * @see \App\Parsers\ParserInterface::getFields()
+     */
+    public function getFields()
+    {
+        $fields = [
+            "day",
+            "hour",
+            "method",
+            "ip",
+            "code"
+        ];
+
+        return $fields;
     }
 }
