@@ -3,7 +3,8 @@ namespace App;
 
 use gchart\gPieChart;
 
-class LogChart {
+class LogChart
+{
 
     /**
      *
@@ -11,24 +12,27 @@ class LogChart {
      */
     private $pChart = null;
 
-    public function __construct($chart = null) {
-        $this->piChart =$chart ? $chart : new gPieChart(550);
-
+    /**
+     *
+     * @param gPieChart $chart
+     */
+    public function __construct(gPieChart $chart = null)
+    {
+        $this->piChart = $chart;
     }
 
-    public function getChart($data, $count = 5) {
-
-        if($count > 0) {
-            $data = array_slice($data, (-1) * $count, $count, true);
+    public function getChart($data, $count = 5)
+    {
+        if ($count > 0) {
+            $data = array_slice($data, (- 1) * $count, $count, true);
         }
 
         $chart = "";
 
-
         $counts = [];
         $names = [];
 
-        foreach ($data as  $items) {
+        foreach ($data as $items) {
             $counts[] = $items["count"];
             $names[] = $items["name"];
         }
@@ -37,7 +41,12 @@ class LogChart {
         $this->piChart->addDataSet($counts);
         $this->piChart->setLabels($names);
         $this->piChart->setLegend($names);
-        $this->piChart->setColors(array("ff3344", "11ff11", "22aacc", "3333aa"));
+        $this->piChart->setColors(array(
+            "ff3344",
+            "11ff11",
+            "22aacc",
+            "3333aa"
+        ));
 
         ob_start();
         $this->piChart->getImgCode();
@@ -45,7 +54,5 @@ class LogChart {
         ob_end_clean();
 
         return $output;
-
-
     }
 }

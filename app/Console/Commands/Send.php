@@ -44,17 +44,17 @@ class Send extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(LogChart $logCharts, ParserStrategy $parserStratagy)
     {
         $file = $this->option("f");
         $type = $this->option("t");
 
-        $parser = ParserStrategy::getParser($type);
+        $parser = $parserStratagy->getParser($type);
+
         $logs = $parser->parse($file);
         $fields = $parser->getFields();
 
         $charts=[];
-        $logCharts = new LogChart();
 
         foreach ($fields as $field) {
             $charts[$field] = $logCharts->getChart($logs[$field]);
