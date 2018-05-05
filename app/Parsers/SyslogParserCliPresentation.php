@@ -39,4 +39,7 @@ class SyslogParserCliPresentation implements ParserInterface
 
         return $logs;
     }
+    public function getFields()
+    {}
+
 }
