@@ -1,9 +1,8 @@
 <?php
 namespace App\Console\Commands;
 
-use App\Parsers\ApacheLogParser;
-use Illuminate\Console\Command;
 use App\Parsers\ParserStrategy;
+use Illuminate\Console\Command;
 
 class Show extends Command
 {
@@ -54,22 +53,38 @@ class Show extends Command
 
         $logs = $parser->parse($file);
 
-        $this->output->note($file);
+        $this->output->note("Log Info");
 
         if($all || $this->option("d")) {
-            $this->table(["Day", "Logs"], $logs["day"]);
+            $this->tableFromLogs($logs, "day");
         }
 
         if($all || $this->option("h")) {
-            $this->table(["Hour", "Logs"], $logs["hour"]);
+            $this->tableFromLogs($logs, "hour");
         }
 
-        if($all || $this->option("m")) {
-            $this->table(["Method", "Logs"], $logs["method"]);
+        if(($type == "apachelog") && ($all || $this->option("m"))) {
+            $this->tableFromLogs($logs, "method");
         }
 
         if(true) {
-            $this->table(["Ip", "Time", "Method", "Path", "", "Code"], $logs["data"]);
+            $this->tableFromLogs($logs, "data");
         }
+    }
+
+    private function tableFromLogs($logs, $key) {
+        $this->info(ucfirst($key));
+        $this->table($this->getTableRows($logs[$key]), $logs[$key]);
+        $this->info("");
+    }
+
+    private function getTableRows($array) {
+        $records = array_pop($array);
+
+        if($records) {
+            return array_map('ucfirst', array_keys($records));
+        }
+
+        return [];
     }
 }
