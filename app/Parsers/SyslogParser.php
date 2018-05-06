@@ -30,7 +30,19 @@ class SyslogParser implements ParserInterface
 
     private $log;
 
-    public function __construct()
+    /**
+     *
+     * @var int
+     */
+    private $trim;
+
+    /**
+     *
+     * @var int
+     */
+    private $count;
+
+    public function __construct($params)
     {
         $this->parser = new SimpleParser(self::EXP);
 
@@ -42,11 +54,14 @@ class SyslogParser implements ParserInterface
             "user" => [],
             "prog" => []
         ];
+
+        $this->trim = isset($params["trim"]) ? (int) $params["trim"] : 0;
+        $this->count = isset($params["count"]) ? (int) $params["count"] : 0;
     }
 
     /**
      *
-     * {@inheritDoc}
+     * {@inheritdoc}
      * @see \App\Parsers\ParserInterface::parse()
      */
     public function parse($file = '')
@@ -89,12 +104,25 @@ class SyslogParser implements ParserInterface
             return $b['count'] <=> $a['count'];
         });
 
+        if ($this->trim > 0) {
+            $data = [];
+
+            foreach ($this->log["data"] as $key => $item) {
+                unset($item["dtime"], $item["month"], $item["day"]);
+                $this->log["data"][$key]["msg"] = substr($item["msg"], 0, $this->trim) . " ..";
+            }
+        }
+
+        if ($this->count) {
+            $this->log["data"] = array_slice($this->log["data"], (- 1) * $this->count, $this->count, true);
+        }
+
         return $this->log;
     }
 
     /**
      *
-     * {@inheritDoc}
+     * {@inheritdoc}
      * @see \App\Parsers\ParserInterface::getFields()
      */
     public function getFields()

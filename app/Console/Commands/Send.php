@@ -14,7 +14,7 @@ class Send extends Command
      *
      * @var string
      */
-    protected $signature = 'send
+    protected $signature = 'logsinfo:send
              {--f=0 : log file}
              {--t=syslog : file type}
              {--m=test@gmail.com : email}
@@ -64,7 +64,7 @@ class Send extends Command
             'logs' => $logs,
             'chart' => $charts
         ], function ($m) use($email) {
-            $m->from('news@loxnews.com', 'Loxnews');
+            $m->from('news@loginfo.com', 'Loginfo');
 
             $m->to($email, "Subscriber")->subject("Logs Information");
         });

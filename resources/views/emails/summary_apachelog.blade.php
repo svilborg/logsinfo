@@ -173,7 +173,7 @@ max-width: 780px !important; }
             <table>
                 <tr>
                     <td class="content footer" align="center">
-                        <p>Loxnews</p>
+                        <p>Loginfo</p>
                     </td>
                 </tr>
             </table>

@@ -3,8 +3,9 @@ namespace App\Console\Commands;
 
 use App\Parsers\ApacheLogParser;
 use Illuminate\Console\Command;
+use App\Parsers\ParserStrategy;
 
-class ApacheLog extends Command
+class Show extends Command
 {
 
     /**
@@ -12,8 +13,9 @@ class ApacheLog extends Command
      *
      * @var string
      */
-    protected $signature = 'apachelog
-             {--f=0 : Syslog file}
+    protected $signature = 'logsinfo:show
+             {--f=0 : Log file}
+             {--t=syslog : file type}
              {--a : All Info}
              {--h : Hourly}
              {--d : Daily}
@@ -42,16 +44,17 @@ class ApacheLog extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(ParserStrategy $parserStratagy)
     {
         $file = $this->option("f");
+        $type = $this->option("t");
         $all = $this->option("a");
 
+        $parser = $parserStratagy->getParser($type, ["trim" => 81, "count" => 10]);
+
+        $logs = $parser->parse($file);
 
         $this->output->note($file);
-
-        $parser = new ApacheLogParser();
-        $logs = $parser->parse($file);
 
         if($all || $this->option("d")) {
             $this->table(["Day", "Logs"], $logs["day"]);
@@ -66,7 +69,7 @@ class ApacheLog extends Command
         }
 
         if(true) {
-            $this->table(["User", "Program", "Time"], $logs["data"]);
+            $this->table(["Ip", "Time", "Method", "Path", "", "Code"], $logs["data"]);
         }
     }
 }

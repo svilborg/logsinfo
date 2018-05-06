@@ -9,12 +9,12 @@ class ParserStrategy
      * @return \App\Parsers\ApacheLogParser|\App\Parsers\SyslogParser
      */
 
-    public function getParser($type = "syslog")
+    public function getParser($type = "syslog", $params = [])
     {
         if ($type == "apachelog") {
-            $parser = new ApacheLogParser();
+            $parser = new ApacheLogParser($params);
         } else {
-            $parser = new SyslogParser();
+            $parser = new SyslogParser($params);
         }
 
         return $parser;
