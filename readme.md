@@ -11,10 +11,10 @@ Log Info and stats for syslog, apachelog, etc..
 Features
 --------
 
-artisan logsinfo:show --a --t=apachelog
+* artisan logsinfo:show --a --t=apachelog
 
 <img alt="Cli" src="docs/cli.png?raw=true" width="400">
 
-mail
+* artisan logsinfo:send --a --t=apachelog
 
 <img alt="Cli" src="docs/mail.png?raw=true" width="400">
