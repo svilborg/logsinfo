@@ -19,7 +19,10 @@ Features
 
 <img alt="Cli" src="docs/mail.png?raw=true" width="400">
 
+
+* API
 * artisan serve
+
 * http://localhost:8000/?type=apachelog&field=code
 
 {
@@ -39,3 +42,7 @@ Features
     "self": "/"
   }
 }
+
+* http://localhost:8000/chart?type=syslog&field=hour
+
+<< Image >>
