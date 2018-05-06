@@ -25,6 +25,7 @@ Features
 
 * http://localhost:8000/?type=apachelog&field=code
 
+```
 {
   "data": [
     {
@@ -42,6 +43,7 @@ Features
     "self": "/"
   }
 }
+```
 
 * http://localhost:8000/chart?type=syslog&field=hour
 
