@@ -1,10 +1,8 @@
 <?php
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\LogChart;
+use Tests\TestCase;
 use gchart\gPieChart;
 
 class LogChartTest extends TestCase

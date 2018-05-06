@@ -1,10 +1,8 @@
 <?php
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Parsers\ApacheLogParser;
+use Tests\TestCase;
 
 class ApacheLogParserTest extends TestCase
 {
@@ -15,7 +13,7 @@ class ApacheLogParserTest extends TestCase
      */
     public function testParserAndFields()
     {
-        $parser = new ApacheLogParser();
+        $parser = new ApacheLogParser([]);
 
         $result = $parser->parse(__DIR__ . "/../data/accesslog");
 
@@ -45,6 +43,6 @@ class ApacheLogParserTest extends TestCase
 
         $this->expectException(\Exception::class);
 
-        $result = $parser->parse(__DIR__ . "/../data/empty");
+        $parser->parse(__DIR__ . "/../data/empty");
     }
 }

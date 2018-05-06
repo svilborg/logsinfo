@@ -1,11 +1,8 @@
 <?php
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Parsers\SyslogParser;
-use App\Console\Commands\SysLog;
+use Tests\TestCase;
 
 class SyslogParserTest extends TestCase
 {
@@ -15,7 +12,7 @@ class SyslogParserTest extends TestCase
      */
     public function testParserAndFields()
     {
-        $parser = new SyslogParser();
+        $parser = new SyslogParser([]);
 
         $result = $parser->parse(__DIR__ . "/../data/syslog");
 
@@ -40,10 +37,10 @@ class SyslogParserTest extends TestCase
 
     public function testEmpty()
     {
-        $parser = new SyslogParser();
+        $parser = new SyslogParser([]);
 
         $this->expectException(\Exception::class);
 
-        $result = $parser->parse(__DIR__ . "/../data/empty");
+        $parser->parse(__DIR__ . "/../data/empty");
     }
 }
