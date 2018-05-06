@@ -18,3 +18,24 @@ Features
 * artisan logsinfo:send --a --t=syslog
 
 <img alt="Cli" src="docs/mail.png?raw=true" width="400">
+
+* artisan serve
+* http://localhost:8000/?type=apachelog&field=code
+
+{
+  "data": [
+    {
+      "name": "404",
+      "count": 3,
+      "percent": "75 %"
+    },
+    {
+      "name": "200",
+      "count": 1,
+      "percent": "25 %"
+    }
+  ],
+  "links": {
+    "self": "/"
+  }
+}
