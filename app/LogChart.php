@@ -6,6 +6,10 @@ use gchart\gPieChart;
 class LogChart
 {
 
+    const TYPE_IMAGE_CODE = 0;
+    const TYPE_IMAGE_URL = 1;
+    const TYPE_IMAGE_RENDER = 3;
+
     /**
      *
      * @var gPieChart
@@ -21,14 +25,11 @@ class LogChart
         $this->piChart = $chart;
     }
 
-    public function getChart($data, $count = 5)
+    public function getChart($data, $count = 5, $outputType = 0)
     {
-
         if ($count > 0) {
             $data = array_slice($data, (- 1) * $count, $count, true);
         }
-
-        $chart = "";
 
         $counts = [];
         $names = [];
@@ -49,10 +50,21 @@ class LogChart
             "3333aa"
         ));
 
-        ob_start();
-        $this->piChart->getImgCode();
-        $output = ob_get_contents();
-        ob_end_clean();
+        if (self::TYPE_IMAGE_CODE === $outputType) {
+            ob_start();
+            $this->piChart->getImgCode();
+            $output = ob_get_contents();
+            ob_end_clean();
+        }
+        elseif(self::TYPE_IMAGE_URL  === $outputType) {
+            $output = $this->piChart->getUrl();
+        }
+        elseif(self::TYPE_IMAGE_RENDER  === $outputType) {
+            $this->piChart->renderImage();
+        }
+        else {
+            throw new \Exception("Invalid Output Type");
+        }
 
         return $output;
     }

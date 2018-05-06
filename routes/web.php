@@ -17,3 +17,8 @@
 Route::get('/', [
     'uses' => 'Controller@index'
 ]);
+
+
+Route::get('/chart', [
+    'uses' => 'Controller@chart'
+]);
