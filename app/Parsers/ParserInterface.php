@@ -22,5 +22,5 @@ interface ParserInterface
      *
      * @return array List of fields
      */
-    public function getFields();
+    public function getStatsFields();
 }

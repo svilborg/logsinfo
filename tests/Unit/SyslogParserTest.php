@@ -30,9 +30,9 @@ class SyslogParserTest extends TestCase
         $this->assertEquals(10, $result["user"][0]["count"]);
         $this->assertEquals("100 %", $result["user"][0]["percent"]);
 
-        $this->assertContains("prog", $parser->getFields());
-        $this->assertContains("day", $parser->getFields());
-        $this->assertContains("hour", $parser->getFields());
+        $this->assertContains("prog", $parser->getStatsFields());
+        $this->assertContains("day", $parser->getStatsFields());
+        $this->assertContains("hour", $parser->getStatsFields());
     }
 
     public function testEmpty()

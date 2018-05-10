@@ -30,11 +30,11 @@ class ApacheLogParserTest extends TestCase
         $this->assertEquals("179.219.43.80", $result["ip"][0]["name"]);
         $this->assertEquals(4, $result["ip"][0]["count"]);
 
-        $this->assertContains("ip", $parser->getFields());
-        $this->assertContains("method", $parser->getFields());
-        $this->assertContains("code", $parser->getFields());
-        $this->assertContains("day", $parser->getFields());
-        $this->assertContains("hour", $parser->getFields());
+        $this->assertContains("ip", $parser->getStatsFields());
+        $this->assertContains("method", $parser->getStatsFields());
+        $this->assertContains("code", $parser->getStatsFields());
+        $this->assertContains("day", $parser->getStatsFields());
+        $this->assertContains("hour", $parser->getStatsFields());
     }
 
     public function testEmpty()

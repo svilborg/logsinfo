@@ -111,9 +111,9 @@ class ApacheLogParser implements ParserInterface
     /**
      *
      * {@inheritdoc}
-     * @see \App\Parsers\ParserInterface::getFields()
+     * @see \App\Parsers\ParserInterface::getStatsFields()
      */
-    public function getFields()
+    public function getStatsFields()
     {
         $fields = [
             "day",
