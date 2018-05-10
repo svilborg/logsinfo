@@ -52,7 +52,7 @@ class Send extends Command
         $parser = $parserStratagy->getParser($type);
 
         $logs = $parser->parse($file);
-        $fields = $parser->getFields();
+        $fields = $parser->getStatsFields();
 
         $charts=[];
 

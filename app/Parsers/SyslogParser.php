@@ -69,6 +69,8 @@ class SyslogParser implements ParserInterface
         $file = ! empty($file) ? $file : '/var/log/syslog';
         $i = 0;
 
+        $this->log["fields"] = $this->getFields();
+
         foreach (new LogIterator($file, $this->parser) as $data) {
 
             if ($data && isset($data["prog"])) {
@@ -132,6 +134,23 @@ class SyslogParser implements ParserInterface
             "hour",
             "prog",
             "user"
+        ];
+
+        return $fields;
+    }
+
+    /**
+     *
+     * {@inheritdoc}
+     * @see \App\Parsers\ParserInterface::getFields()
+     */
+    public function getFields()
+    {
+        $fields = [
+            "time",
+            "prog",
+            "user",
+            "msg"
         ];
 
         return $fields;

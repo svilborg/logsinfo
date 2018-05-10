@@ -61,6 +61,8 @@ class ApacheLogParser implements ParserInterface
         $file = ! empty($file) ? $file : '/var/log/apache2/access.log.1';
         $i = 0;
 
+        $this->log["fields"] = $this->getFields();
+
         foreach (new LogIterator($file, $this->parser) as $data) {
 
             if ($data && isset($data["ip"])) {
@@ -120,6 +122,25 @@ class ApacheLogParser implements ParserInterface
             "hour",
             "method",
             "ip",
+            "code"
+        ];
+
+        return $fields;
+    }
+
+    /**
+     *
+     * {@inheritdoc}
+     * @see \App\Parsers\ParserInterface::getFields()
+     */
+    public function getFields()
+    {
+        $fields = [
+            "ip",
+            "time",
+            "method",
+            "path",
+            "http",
             "code"
         ];
 

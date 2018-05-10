@@ -23,4 +23,11 @@ interface ParserInterface
      * @return array List of fields
      */
     public function getStatsFields();
+
+    /**
+     * Rose fields
+     *
+     * @return array
+     */
+    public function getFields();
 }
