@@ -7,19 +7,25 @@ import Table from './Table';
 export default class Example extends Component {
 	constructor(props) {
 	       super(props);
-	       this.state = {query: '', items: '', fields: ''};
+	       this.state = {query: '', items: '', fields: '', ltype: 'apachelog', data : ''};
+
+	       this.changeType = this.changeType.bind(this);
+	       this.loadTable = this.loadTable.bind(this)
 	}
 
 	componentDidMount() {
-	       axios.get('http://localhost:8000/api?type=apachelog')
-	       .then(response => {
+		this.loadTable()
+	 }
 
-	    	   console.log("xx");
-	    	   console.log(response.data);
+	 loadTable(l) {
+		 console.log(this.state.ltype)
+	       axios.get('http://localhost:8000/api?type='+l)
+	       .then(response => {
 
 	         this.setState({
 	        	 items: response.data.data.data,
-	        	 fields: response.data.data.fields
+	        	 fields: response.data.data.fields,
+	        	 data: response.data.data
 	        	 });
 	       })
 	       .catch(function (error) {
@@ -33,19 +39,23 @@ export default class Example extends Component {
 	     }
 	 }
 
-//	 handleInputChange () {
-//		 this.setState({
-//		      query: this.search.value
-//		    },
-//		    () => {
-//		      if (this.state.query && this.state.query.length > 1) {
-//		        if (this.state.query.length % 2 === 0) {
-//		          this.getInfo()
-//		        }
-//		      } else if (!this.state.query) {
-//		      }
-//		    })
-//	 }
+	 tableSummary(f) {
+		 let fields = ["name", "count", "percent"]
+
+		 console.log(this.state.data[f])
+
+		 if(this.state.items instanceof Array) {
+			 return <Table items={this.state.data[f]} fields={fields}/>;
+	     }
+	 }
+
+
+	 changeType (event) {
+		 let e = event.target.value
+
+		 this.loadTable(e)
+         this.setState({ltype: e});
+	 }
 
 	 render() {
         return (
@@ -56,16 +66,20 @@ export default class Example extends Component {
                             <div className="card-header">Example Component</div>
 
                             <div className="card-body">
+
                             <form>
-                            <input
-                              placeholder="Search for..."
-                              ref={input => this.search = input}
-                              onChange={this.handleInputChange}
-                            /><button onClick={this.handleSearch}> Search </button>
+	                            <select id="lang" onChange={this.changeType} value={this.state.ltype}>
+	                            <option value="apachelog" selected>apachelog</option>
+	                            <option value="syslog" >syslog</option>
+	                            </select>
                             </form>
 
+                            <img src="http://localhost:8000/api/chart?type=syslog&field=hour"/>
+
+
+
                             <div>
-                            <h1>Items</h1>
+                            <h1>Log Data</h1>
 
                             <div className="row">
                               <div className="col-md-10"></div>
@@ -86,16 +100,3 @@ export default class Example extends Component {
         );
     }
 }
-//<table className="table table-hover">
-//<thead>
-//<tr>
-//    <td>ID</td>
-//    <td>Item Name</td>
-//    <td>Item Price</td>
-//    <td>Actions</td>
-//</tr>
-//</thead>
-//<tbody>
-//  {this.tabRow()}
-//</tbody>
-//</table>

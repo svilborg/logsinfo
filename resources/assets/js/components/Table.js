@@ -8,9 +8,6 @@ class Table extends Component {
 	  console.log(this.props.fields)
 		 if(this.props.fields instanceof Array) {
 	         return this.props.fields.map(function(object, i) {
-
-	        	 console.log(object)
-
 	             return <TableColumn obj={object} key={i} />;
 	         })
 	     }
@@ -19,7 +16,7 @@ class Table extends Component {
   tabRow() {
 	  if(this.props.items instanceof Array) {
 		  return this.props.items.map(function(object, i) {
-			  return <TableRow obj={object} key={i} />;
+			  return <TableRow obj={object} key={i} />
 		  })
 	  }
   }

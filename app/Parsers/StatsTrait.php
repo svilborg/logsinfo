@@ -11,6 +11,8 @@ trait StatsTrait {
             $perc = round(((int) $item["count"] / $sum) * 100);
             $this->log[$field][$key]["percent"] = $perc . " %";
         }
+
+        $this->log[$field] = array_values($this->log[$field]);
     }
 
     private function incStats($stat, $field)

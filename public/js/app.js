@@ -16738,6 +16738,7 @@ function createRouterHistory(createHistory) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TableRowCell__ = __webpack_require__(126);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -16748,61 +16749,76 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
 var TableRow = function (_Component) {
-  _inherits(TableRow, _Component);
+	_inherits(TableRow, _Component);
 
-  function TableRow() {
-    _classCallCheck(this, TableRow);
+	function TableRow() {
+		_classCallCheck(this, TableRow);
 
-    return _possibleConstructorReturn(this, (TableRow.__proto__ || Object.getPrototypeOf(TableRow)).apply(this, arguments));
-  }
+		return _possibleConstructorReturn(this, (TableRow.__proto__ || Object.getPrototypeOf(TableRow)).apply(this, arguments));
+	}
 
-  _createClass(TableRow, [{
-    key: 'render',
-    value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'tr',
-        null,
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'td',
-          null,
-          this.props.obj.ip
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'td',
-          null,
-          this.props.obj.time
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'td',
-          null,
-          this.props.obj.code
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'td',
-          null,
-          this.props.obj.method
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'td',
-          null,
-          this.props.obj.path
-        )
-      );
-    }
-  }]);
+	_createClass(TableRow, [{
+		key: 'tabRowCell',
+		value: function tabRowCell() {
+			//if(this.props.obj instanceof Array) {
 
-  return TableRow;
+			var props = this.props.obj;
+			var data = [];
+
+			Object.keys(props).forEach(function (key) {
+				var obj = props[key];
+				data.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__TableRowCell__["a" /* default */], { obj: obj, key: key }));
+				//			  console.log(obj)
+			});
+
+			return data;
+
+			//			  return this.props.obj.map(function(object, i) {
+			//				  return <TableRowCell obj={object} key={i} />
+			//			  })
+			//		  }
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'tr',
+				null,
+				this.tabRowCell()
+			);
+		}
+	}]);
+
+	return TableRow;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 /* harmony default export */ __webpack_exports__["a"] = (TableRow);
+
+//
+//<td>
+//{this.props.obj.ip}
+//</td>
+//<td>
+//{this.props.obj.time}
+//</td>
+//<td>
+//	{this.props.obj.code}
+//</td>
+//<td>
+//{this.props.obj.method}
+//</td>
+//<td>
+//	{this.props.obj.path}
+//</td>
 
 /***/ }),
 /* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(54);
-module.exports = __webpack_require__(120);
+module.exports = __webpack_require__(121);
 
 
 /***/ }),
@@ -16817,7 +16833,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Example__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Master__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Master__ = __webpack_require__(120);
 
 __webpack_require__(55);
 
@@ -61261,139 +61277,137 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var Example = function (_Component) {
-    _inherits(Example, _Component);
+				_inherits(Example, _Component);
 
-    function Example(props) {
-        _classCallCheck(this, Example);
+				function Example(props) {
+								_classCallCheck(this, Example);
 
-        var _this = _possibleConstructorReturn(this, (Example.__proto__ || Object.getPrototypeOf(Example)).call(this, props));
+								var _this = _possibleConstructorReturn(this, (Example.__proto__ || Object.getPrototypeOf(Example)).call(this, props));
 
-        _this.state = { query: '', items: '', fields: '' };
-        return _this;
-    }
+								_this.state = { query: '', items: '', fields: '', ltype: 'apachelog', data: '' };
 
-    _createClass(Example, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var _this2 = this;
+								_this.changeType = _this.changeType.bind(_this);
+								_this.loadTable = _this.loadTable.bind(_this);
+								return _this;
+				}
 
-            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('http://localhost:8000/api?type=apachelog').then(function (response) {
+				_createClass(Example, [{
+								key: 'componentDidMount',
+								value: function componentDidMount() {
+												this.loadTable();
+								}
+				}, {
+								key: 'loadTable',
+								value: function loadTable(l) {
+												var _this2 = this;
 
-                console.log("xx");
-                console.log(response.data);
+												console.log(this.state.ltype);
+												__WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('http://localhost:8000/api?type=' + l).then(function (response) {
 
-                _this2.setState({
-                    items: response.data.data.data,
-                    fields: response.data.data.fields
-                });
-            }).catch(function (error) {
-                console.log(error);
-            });
-        }
-    }, {
-        key: 'table',
-        value: function table() {
-            if (this.state.items instanceof Array) {
-                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Table__["a" /* default */], { items: this.state.items, fields: this.state.fields });
-            }
-        }
+																_this2.setState({
+																				items: response.data.data.data,
+																				fields: response.data.data.fields,
+																				data: response.data.data
+																});
+												}).catch(function (error) {
+																console.log(error);
+												});
+								}
+				}, {
+								key: 'table',
+								value: function table() {
+												if (this.state.items instanceof Array) {
+																return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Table__["a" /* default */], { items: this.state.items, fields: this.state.fields });
+												}
+								}
+				}, {
+								key: 'tableSummary',
+								value: function tableSummary(f) {
+												var fields = ["name", "count", "percent"];
 
-        //	 handleInputChange () {
-        //		 this.setState({
-        //		      query: this.search.value
-        //		    },
-        //		    () => {
-        //		      if (this.state.query && this.state.query.length > 1) {
-        //		        if (this.state.query.length % 2 === 0) {
-        //		          this.getInfo()
-        //		        }
-        //		      } else if (!this.state.query) {
-        //		      }
-        //		    })
-        //	 }
+												console.log(this.state.data[f]);
 
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this3 = this;
+												if (this.state.items instanceof Array) {
+																return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Table__["a" /* default */], { items: this.state.data[f], fields: fields });
+												}
+								}
+				}, {
+								key: 'changeType',
+								value: function changeType(event) {
+												var e = event.target.value;
 
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: 'container' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'div',
-                    { className: 'row justify-content-center' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'div',
-                        { className: 'col-md-8' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                            'div',
-                            { className: 'card' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { className: 'card-header' },
-                                'Example Component'
-                            ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'div',
-                                { className: 'card-body' },
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'form',
-                                    null,
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
-                                        placeholder: 'Search for...',
-                                        ref: function ref(input) {
-                                            return _this3.search = input;
-                                        },
-                                        onChange: this.handleInputChange
-                                    }),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'button',
-                                        { onClick: this.handleSearch },
-                                        ' Search '
-                                    )
-                                ),
-                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                    'div',
-                                    null,
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'h1',
-                                        null,
-                                        'Items'
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'div',
-                                        { className: 'row' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'col-md-10' }),
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'col-md-2' })
-                                    ),
-                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-                                    this.table()
-                                )
-                            )
-                        )
-                    )
-                )
-            );
-        }
-    }]);
+												this.loadTable(e);
+												this.setState({ ltype: e });
+								}
+				}, {
+								key: 'render',
+								value: function render() {
+												return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+																'div',
+																{ className: 'container' },
+																__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+																				'div',
+																				{ className: 'row justify-content-center' },
+																				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+																								'div',
+																								{ className: 'col-md-8' },
+																								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+																												'div',
+																												{ className: 'card' },
+																												__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+																																'div',
+																																{ className: 'card-header' },
+																																'Example Component'
+																												),
+																												__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+																																'div',
+																																{ className: 'card-body' },
+																																__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+																																				'form',
+																																				null,
+																																				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+																																								'select',
+																																								{ id: 'lang', onChange: this.changeType, value: this.state.ltype },
+																																								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+																																												'option',
+																																												{ value: 'apachelog', selected: true },
+																																												'apachelog'
+																																								),
+																																								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+																																												'option',
+																																												{ value: 'syslog' },
+																																												'syslog'
+																																								)
+																																				)
+																																),
+																																__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: 'http://localhost:8000/api/chart?type=syslog&field=hour' }),
+																																__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+																																				'div',
+																																				null,
+																																				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+																																								'h1',
+																																								null,
+																																								'Log Data'
+																																				),
+																																				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+																																								'div',
+																																								{ className: 'row' },
+																																								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'col-md-10' }),
+																																								__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'col-md-2' })
+																																				),
+																																				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+																																				this.table()
+																																)
+																												)
+																								)
+																				)
+																)
+												);
+								}
+				}]);
 
-    return Example;
+				return Example;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
-//<table className="table table-hover">
-//<thead>
-//<tr>
-//    <td>ID</td>
-//    <td>Item Name</td>
-//    <td>Item Price</td>
-//    <td>Actions</td>
-//</tr>
-//</thead>
-//<tbody>
-//  {this.tabRow()}
-//</tbody>
-//</table>
-
 
 /* harmony default export */ __webpack_exports__["a"] = (Example);
 
@@ -61405,7 +61419,7 @@ var Example = function (_Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TableRow__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__TableColumn__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__TableColumn__ = __webpack_require__(119);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61433,9 +61447,6 @@ var Table = function (_Component) {
       console.log(this.props.fields);
       if (this.props.fields instanceof Array) {
         return this.props.fields.map(function (object, i) {
-
-          console.log(object);
-
           return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__TableColumn__["a" /* default */], { obj: object, key: i });
         });
       }
@@ -61480,6 +61491,48 @@ var Table = function (_Component) {
 
 /***/ }),
 /* 119 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var TableColumn = function (_Component) {
+  _inherits(TableColumn, _Component);
+
+  function TableColumn() {
+    _classCallCheck(this, TableColumn);
+
+    return _possibleConstructorReturn(this, (TableColumn.__proto__ || Object.getPrototypeOf(TableColumn)).apply(this, arguments));
+  }
+
+  _createClass(TableColumn, [{
+    key: 'render',
+    value: function render() {
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'td',
+        null,
+        this.props.obj
+      );
+    }
+  }]);
+
+  return TableColumn;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (TableColumn);
+
+/***/ }),
+/* 120 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61586,17 +61639,17 @@ var Master = function (_Component) {
 /* unused harmony default export */ var _unused_webpack_default_export = (Master);
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 121 */,
 /* 122 */,
 /* 123 */,
 /* 124 */,
-/* 125 */
+/* 125 */,
+/* 126 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61612,16 +61665,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var TableRow = function (_Component) {
-  _inherits(TableRow, _Component);
+var TableRowCell = function (_Component) {
+  _inherits(TableRowCell, _Component);
 
-  function TableRow() {
-    _classCallCheck(this, TableRow);
+  function TableRowCell() {
+    _classCallCheck(this, TableRowCell);
 
-    return _possibleConstructorReturn(this, (TableRow.__proto__ || Object.getPrototypeOf(TableRow)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (TableRowCell.__proto__ || Object.getPrototypeOf(TableRowCell)).apply(this, arguments));
   }
 
-  _createClass(TableRow, [{
+  _createClass(TableRowCell, [{
     key: 'render',
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -61632,10 +61685,10 @@ var TableRow = function (_Component) {
     }
   }]);
 
-  return TableRow;
+  return TableRowCell;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (TableRow);
+/* harmony default export */ __webpack_exports__["a"] = (TableRowCell);
 
 /***/ })
 /******/ ]);
